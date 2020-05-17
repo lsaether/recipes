@@ -66,14 +66,15 @@ pub mod crypto {
 
 	pub struct TestAuthId;
 	// implemented for ocw-runtime
-	// impl frame_system::offchain::AppCrypto<MultiSigner, MultiSignature> for TestAuthId
-	// {
-	// 	type RuntimeAppPublic = Public;
-	// 	type GenericSignature = sp_core::sr25519::Signature;
-	// 	type GenericPublic = sp_core::sr25519::Public;
-	// }
+	impl frame_system::offchain::AppCrypto<MultiSigner, MultiSignature> for TestAuthId
+	{
+		type RuntimeAppPublic = Public;
+		type GenericSignature = sp_core::sr25519::Signature;
+		type GenericPublic = sp_core::sr25519::Public;
+	}
 
-	impl frame_system::offchain::AppCrypto<<MultiSignature as Verify>::Signer, MultiSignature> for TestAuthId
+	// implemented for mock runtime in test
+	impl frame_system::offchain::AppCrypto<<Sr25519Signature as Verify>::Signer, Sr25519Signature> for TestAuthId
 	{
 		type RuntimeAppPublic = Public;
 		type GenericSignature = sp_core::sr25519::Signature;
